@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -25,7 +26,25 @@ public class DoctorServiceImpl implements DoctorService{
     @Override
     public Doctor createDoctor(Doctor doctor) {
 
-        return doctorRepository.save(doctor);
+        if(doctor.getPatient() != null && doctor.getPatient().size() > 0){
+            List<Patient> savedP = new ArrayList<>();
+            doctor.getPatient().forEach(patient ->
+            {
+                if(patient != null && patient.getId() == null){
+                   Patient savedPatient= patientRepository.save(patient);
+                   savedP.add(savedPatient);
+                }
+
+            });
+            doctor.setPatient(savedP);
+        }
+
+
+
+              doctorRepository.save(doctor);
+        return doctor;
+
+
     }
 
     @Override

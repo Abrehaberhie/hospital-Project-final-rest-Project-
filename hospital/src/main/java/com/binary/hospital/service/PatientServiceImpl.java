@@ -24,11 +24,11 @@ public class PatientServiceImpl implements PatientService{
     @Override
     public Patient createPatient(Patient patient) {
 
-//        if(patient.getDoctor()!=null&&patient.getDoctor().getId()==null)
-//        {
-//            Doctor savedDoctor=doctorRepository.save(patient.getDoctor());
-//            patient.setDoctor(savedDoctor);
-//        }
+       if(patient.getDoctor()!=null&&patient.getDoctor().getId()==null)
+       {
+            Doctor savedDoctor=doctorRepository.save(patient.getDoctor());
+            patient.setDoctor(savedDoctor);
+        }
         return patientRepository.save(patient);
    }
 
@@ -38,21 +38,21 @@ public class PatientServiceImpl implements PatientService{
     @Override
     public Patient updatePatient(int id, Patient updatedPatient) {
         Patient existintPatient=patientRepository.findById(updatedPatient.getId()).orElse(null);
-       // existintPatient.setDoctor(updatedPatient.getDoctor());
+       existintPatient.setDoctor(updatedPatient.getDoctor());
         existintPatient.setId(updatedPatient.getId());
         existintPatient.setAge(updatedPatient.getAge());
         existintPatient.setFirstName(updatedPatient.getFirstName());
         existintPatient.setLastName(updatedPatient.getLastName());
         existintPatient.setType(updatedPatient.getType());
         existintPatient.setSeverityOfPain(updatedPatient.getSeverityOfPain());
-//        if(updatedPatient.getDoctor()!=null&&updatedPatient.getDoctor().getId()==null)
-//        {
-//           Doctor savedDoctor = doctorRepository.save(updatedPatient.getDoctor());
-//            existintPatient.setDoctor(savedDoctor);
-//        }
+        if(updatedPatient.getDoctor()!=null&&updatedPatient.getDoctor().getId()==null)
+        {
+           Doctor savedDoctor = doctorRepository.save(updatedPatient.getDoctor());
+            existintPatient.setDoctor(savedDoctor);
+        }
         return patientRepository.save(existintPatient);
 
-//
+
     }
 
     @Override

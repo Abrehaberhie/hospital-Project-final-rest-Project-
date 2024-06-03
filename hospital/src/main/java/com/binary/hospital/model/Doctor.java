@@ -1,6 +1,7 @@
 package com.binary.hospital.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import jakarta.validation.constraints.Max;
@@ -34,7 +35,9 @@ public class Doctor {
     private int age;
 
   // @OneToMany(cascade = CascadeType.ALL, mappedBy = "doctor",fetch = FetchType.EAGER)
-  //  @JsonIgnore
-    @OneToMany
+   // @JsonIgnore
+
+  // @JsonManagedReference
+   @OneToMany( cascade = CascadeType.ALL, fetch = FetchType.EAGER)
    private List<Patient> patient;
 }

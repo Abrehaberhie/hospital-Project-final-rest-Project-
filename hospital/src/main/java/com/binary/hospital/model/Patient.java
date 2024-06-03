@@ -1,5 +1,6 @@
 package com.binary.hospital.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import jakarta.validation.constraints.Max;
@@ -27,8 +28,10 @@ public class Patient {
     @Min(6)
     @Max(45)
     private int age;
-//   @ManyToOne(fetch = FetchType.EAGER)
-//  @JoinColumn(name = "patient")
- //  private Doctor doctor;
+
+
+  @ManyToOne(fetch = FetchType.EAGER)
+  @JoinColumn(name = "doctor")
+   private Doctor doctor;
 
 }
