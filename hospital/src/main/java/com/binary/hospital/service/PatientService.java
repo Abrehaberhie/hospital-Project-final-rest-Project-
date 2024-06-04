@@ -7,9 +7,10 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 @Repository
 public interface PatientService {
-    public List<Patient> getAllPatient();
-    public Patient  createPatient(Patient patient);
-    public Patient updatePatient(int id, Patient updatedPatient);
-    public void deletPatient(int id);
-    public Patient getPatientById(int id);
+    List<Patient> getAllPatient();
+    Patient createPatient(Patient patient);
+    Patient updatePatient(int id, Patient updatedPatient);
+    void deletePatient(int id);
+    Patient getPatientById(int id);
+
 }

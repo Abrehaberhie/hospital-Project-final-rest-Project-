@@ -22,22 +22,25 @@ public class Doctor {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
-    @NotEmpty(message = "fname Not to be empity")
+
+    @NotEmpty(message = "fname Not to be empty")
     private String firstname;
+
     @NotBlank
     private String lastclass;
+
     @NotBlank
     private String hospitalcenter;
+
     @NotBlank
     private String speciality;
+
     @Min(10)
     @Max(60)
     private int age;
 
-  // @OneToMany(cascade = CascadeType.ALL, mappedBy = "doctor",fetch = FetchType.EAGER)
-   // @JsonIgnore
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "doctor", fetch = FetchType.EAGER)
+    @JsonManagedReference
+    private List<Patient> patient;
 
-  // @JsonManagedReference
-   @OneToMany( cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-   private List<Patient> patient;
 }

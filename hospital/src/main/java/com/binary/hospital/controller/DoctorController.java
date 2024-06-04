@@ -21,6 +21,40 @@ public class DoctorController {
     private DoctorServiceImpl doctorServiceImpl;
 
     @PostMapping("/create")
+    public ResponseEntity<?> saveDoctor(@RequestBody @Valid Doctor doctor) {
+        return new ResponseEntity<>(doctorServiceImpl.createDoctor(doctor), HttpStatus.CREATED);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<?> getDoctorById(@PathVariable("id") Integer id) {
+        Doctor doctor = doctorServiceImpl.getDoctorById(id);
+        if (doctor != null) {
+            return new ResponseEntity<>(doctor, HttpStatus.FOUND);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @GetMapping("/all")
+    public ResponseEntity<List<Doctor>> getAllDoctors() {
+        return new ResponseEntity<>(doctorServiceImpl.getAllDoctors(), HttpStatus.OK);
+    }
+
+    @PutMapping("/update/{id}")
+    public ResponseEntity<Doctor> updateDoctor(@RequestBody Doctor updatedDoctor, @PathVariable("id") Integer id) {
+        return new ResponseEntity<>(doctorServiceImpl.updateDoctor(id, updatedDoctor), HttpStatus.OK);
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<String> deletDoctorById(@PathVariable("id") Integer id) {
+        doctorServiceImpl.deletDoctor(id);
+        return new ResponseEntity<>("Data has been deleted", HttpStatus.NO_CONTENT);
+    }
+    /*
+    @Autowired
+    private DoctorServiceImpl doctorServiceImpl;
+
+    @PostMapping("/create")
     public ResponseEntity<?> saveDoctor(@RequestBody @Valid Doctor doctor)
     {
         return new ResponseEntity<>(doctorServiceImpl.createDoctor(doctor), HttpStatus.CREATED);
@@ -56,5 +90,7 @@ public class DoctorController {
 
         return new ResponseEntity<String>("Data has been deleted",HttpStatus.NO_CONTENT);
     }
+
+     */
 
 }

@@ -20,6 +20,38 @@ import java.util.List;
 public class PatientController {
     @Autowired
     private PatientServiceImpl patientServiceImpl;
+
+    @PostMapping("/create")
+    public ResponseEntity<Patient> savePatient(@RequestBody @Valid Patient patient) {
+        return new ResponseEntity<>(patientServiceImpl.createPatient(patient), HttpStatus.CREATED);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Patient> getPatientById(@PathVariable("id") Integer id) {
+        return new ResponseEntity<>(patientServiceImpl.getPatientById(id), HttpStatus.OK);
+    }
+
+    @GetMapping("/all")
+    public ResponseEntity<List<Patient>> getAllPatient() {
+        List<Patient> list = new ArrayList<>();
+        patientServiceImpl.getAllPatient().forEach(list::add);
+        return new ResponseEntity<>(list, HttpStatus.OK);
+    }
+
+    @PutMapping("/update/{id}")
+    public ResponseEntity<Patient> updatePatient(@RequestBody Patient updatedPatient, @PathVariable("id") Integer id) {
+        return new ResponseEntity<>(patientServiceImpl.updatePatient(id, updatedPatient), HttpStatus.OK);
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<String> deletePatientById(@PathVariable("id") Integer id) {
+        patientServiceImpl.deletePatient(id);
+        return new ResponseEntity<>("Data has been deleted", HttpStatus.NO_CONTENT);
+
+}
+    /*
+    @Autowired
+    private PatientServiceImpl patientServiceImpl;
     @PostMapping("/create")
     public ResponseEntity<Patient> savePatient(@RequestBody @Valid Patient patient)
     {
@@ -54,4 +86,6 @@ public class PatientController {
 
         return new ResponseEntity<String>("Data has been deleted",HttpStatus.NO_CONTENT);
     }
+
+     */
 }

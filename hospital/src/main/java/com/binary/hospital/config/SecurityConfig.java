@@ -32,7 +32,7 @@ public class SecurityConfig {
 
         authorizeHttpRequests(authorize ->
         authorize
-                .requestMatchers("/api/v1/patient/create","/api/v1/patient/create", "/api/v1/doctor/create","/api/v1/doctor/all", "/api/v1/enrolement/register", "/api/v1/enrolement/login").permitAll()
+                .requestMatchers("/api/v1/patient/create","/api/v1/patient/update/{id}","/api/v1/patient/delete/{id}","/api/v1/patient/all", "/api/v1/doctor/create","/api/v1/doctor/delete/{id}","/api/v1/doctor/update/{id}","/api/v1/doctor/all", "/api/v1/enrolement/register", "/api/v1/enrolement/login").permitAll()
                 .anyRequest().authenticated())
                 .sessionManagement(session->session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .csrf(csrf -> csrf.disable());

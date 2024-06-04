@@ -1,5 +1,6 @@
 package com.binary.hospital.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
@@ -19,19 +20,20 @@ public class Patient {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
-    @NotEmpty(message = "fname Not to be empity")
+
     private String firstName;
-    @NotBlank
+
     private String lastName;
+
     private String type;
-    private  String severityOfPain;
-    @Min(6)
-    @Max(45)
+
+    private String severityOfPain;
+
     private int age;
 
-
-  @ManyToOne(fetch = FetchType.EAGER)
-  @JoinColumn(name = "doctor")
-   private Doctor doctor;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "doctor_id")
+    @JsonBackReference
+    private Doctor doctor;
 
 }
